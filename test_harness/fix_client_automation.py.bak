@@ -41,7 +41,7 @@ class Utility:
         if len(defaultAnswer) == 0:
             actualQuestionText += " ( Press enter for " + defaultAnswer + " ) "
         actualQuestionText += " : "
-        answer = input(actualQuestionText)
+        answer = raw_input(actualQuestionText)
         if not answer:
             answer = defaultAnswer
         return answer
@@ -51,7 +51,7 @@ class Utility:
         actualQuestionText = questionText + " ( Y/y or N/n ) : "
         retVal = False
         while True:
-            answer = input(actualQuestionText)
+            answer = raw_input(actualQuestionText)
             answer = answer.lower()
             if not answer:
                 continue
@@ -493,7 +493,7 @@ class FixTCPTransport:
                     self.socket.connect((self.targetAddress, self.targetPort))
                     connected = True
                     break
-                except socket.error as v:
+                except socket.error, v:
                     errorCode = v[0]
                     if errorCode == 10061: # Remote actively refused it
                         continue
@@ -546,7 +546,7 @@ class FixTCPTransport:
         sentBytes = 0
         
         try:
-            sentBytes = self.socket.send( message.toString(True).encode() )
+            sentBytes = self.socket.send( message.toString(True) )
         except socket.timeout:
             sentBytes = 0
         
@@ -558,10 +558,10 @@ class FixTCPTransport:
         data = ""
         
         try:
-            data = self.socket.recv(size).decode()
+            data = self.socket.recv(size)
         except socket.error:
             data = None
-            print("Socket error")
+            print "Socket error"
         return data
 
     def recv(self):
